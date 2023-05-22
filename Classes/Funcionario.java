@@ -1,4 +1,4 @@
-public class funcionario extends pessoa{
+public class Funcionario extends Pessoa{
 
     //Atributos
     private int id;

@@ -24,6 +24,14 @@ public class Medico extends Funcionario{
     public void setEspecialidade(String especialidade) {
         this.especialidade = especialidade;
     }
+
+    private String mudarMedico(String crm){
+
+    }
+
+    private String mudarEspecialidade(String especialidade) {
+
+    }
 }
 
 

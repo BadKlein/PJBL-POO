@@ -62,7 +62,6 @@ public class administradorMenu extends JPanel {
         enviar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String filePath = "C:\\Users\\alwaystiredbtw\\pjbl-poo\\PJBL-POO\\src\\usuarios.csv";
                 String tipo = txtTipo.getText();
                 String nome = txtNome.getText();
                 String codigo = txtCodigo.getText();
@@ -91,6 +90,7 @@ public class administradorMenu extends JPanel {
 
                 } catch (IOException f) {
                     System.out.println("Erro ao ler o arquivo CSV: " + f.getMessage());
+
                 }
             }
         });

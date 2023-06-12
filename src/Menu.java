@@ -19,6 +19,7 @@ public class Menu extends JFrame {
     private JPanel teste1 = new JPanel();
     private JPanel teste2 = new JPanel();
     JPanel secretarioMenu = new secretarioMenu();
+    JPanel menu = new JPanel();
 
     public Menu(String title) {
         this.setPreferredSize(new Dimension(750,475));
@@ -27,6 +28,9 @@ public class Menu extends JFrame {
         this.pack();
         this.setLocationRelativeTo(null);
         this.setVisible (true);
+        menu.setVisible(true);
+        menu.setBounds(0, 0, 750, 475);
+        secretarioMenu.setBounds(0,0,750,475);
         //construct components
         medico = new JButton ("Medico(a)");
         enfermagem = new JButton ("Enfermeiro(a)");
@@ -60,8 +64,9 @@ public class Menu extends JFrame {
         secretaria.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                System.out.println("aaaaaa");
+                menu.setVisible(false);
                 secretarioMenu.setVisible(true);
-                Menu.this.setContentPane(secretarioMenu);
             }
 
 
@@ -77,12 +82,14 @@ public class Menu extends JFrame {
 
         });
         //add components
-        add (medico);
-        add (enfermagem);
-        add (secretaria);
-        add (administrador);
-        add (jcomp5);
-        add (jcomp6);
+        menu.add (medico);
+        menu.add (enfermagem);
+        menu.add (secretaria);
+        menu.add (administrador);
+        menu.add (jcomp5);
+        menu.add (jcomp6);
+        add(menu);
+        add(secretarioMenu);
 
         //set component bounds (only needed by Absolute Positioning)
         medico.setBounds (405, 155, 125, 50);

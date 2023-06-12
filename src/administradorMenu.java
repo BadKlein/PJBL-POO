@@ -62,39 +62,35 @@ public class administradorMenu extends JPanel {
         enviar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String filePath = "\"C:\\Users\\alwaystiredbtw\\Desktop\\usuarios.csv\"";
-                String tempFilePath = "C:\\Users\\alwaystiredbtw";
                 String tipo = txtTipo.getText();
                 String nome = txtNome.getText();
                 String codigo = txtCodigo.getText();
 
-                try (BufferedReader reader = new BufferedReader(new FileReader(filePath));
-                     BufferedWriter writer = new BufferedWriter(new FileWriter(tempFilePath))) {
+                try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+                    StringBuilder fileContent = new StringBuilder();
 
+                    // Ler o arquivo original e armazenar o conteúdo em memória
                     String line;
                     while ((line = reader.readLine()) != null) {
-                        writer.write(line);
-                        writer.newLine();
+                        fileContent.append(line).append(System.lineSeparator());
                     }
 
                     // Adicionar nova linha com tipo, nome e código
-                    writer.write(tipo + "," + nome + "," + codigo);
-                    writer.newLine();
+                    fileContent.append(tipo).append(",").append(nome).append(",").append(codigo).append(System.lineSeparator());
 
-                    JOptionPane.showMessageDialog(administradorMenu.this, "Funcionario registrado");
-                    administradorMenu.this.setVisible(false);
-                    panel.setVisible(true);
+                    // Sobrescrever o arquivo original com as alterações
+                    try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+                        writer.write(fileContent.toString());
+                        JOptionPane.showMessageDialog(administradorMenu.this, "Funcionario registrado");
+                        administradorMenu.this.setVisible(false);
+                        panel.setVisible(true);
+                    } catch (IOException f) {
+                        JOptionPane.showMessageDialog(administradorMenu.this, "Ocorreu algum erro");
+                    }
+
                 } catch (IOException f) {
-                    JOptionPane.showMessageDialog(administradorMenu.this, "Ocorreu algum erro.");
-                }
+                    System.out.println("Erro ao ler o arquivo CSV: " + f.getMessage());
 
-                // Renomear o arquivo temporário para substituir o arquivo original
-                File originalFile = new File(filePath);
-                File tempFile = new File(tempFilePath);
-                if (tempFile.renameTo(originalFile)) {
-                    System.out.println("Arquivo CSV renomeado com sucesso.");
-                } else {
-                    System.out.println("Erro ao renomear o arquivo CSV.");
                 }
             }
         });

@@ -10,6 +10,18 @@ public class Paciente extends Pessoa {
         this.atendimentoTipo = atendimentoTipo;
 
     }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public String getIdade() {
+        return idade;
+    }
+
+    public String getAtendimentoTipo() {
+        return atendimentoTipo;
+    }
 }
 
 

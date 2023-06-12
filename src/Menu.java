@@ -16,10 +16,10 @@ public class Menu extends JFrame {
     private JButton administrador;
     private JLabel jcomp5;
     private JLabel jcomp6;
-    private JPanel teste1 = new JPanel();
-    private JPanel teste2 = new JPanel();
-    JPanel secretarioMenu = new secretarioMenu();
+
     JPanel menu = new JPanel();
+    JPanel secretarioMenu = new secretarioMenu(menu);
+    JPanel administradorMenu= new administradorMenu(menu);
 
     public Menu(String title) {
         this.setPreferredSize(new Dimension(750,475));
@@ -28,9 +28,14 @@ public class Menu extends JFrame {
         this.pack();
         this.setLocationRelativeTo(null);
         this.setVisible (true);
+        menu.setLayout(null);
         menu.setVisible(true);
         menu.setBounds(0, 0, 750, 475);
         secretarioMenu.setBounds(0,0,750,475);
+        secretarioMenu.setVisible(false);
+        administradorMenu.setBounds(0,0,750,475);
+        administradorMenu.setVisible(false);
+
         //construct components
         medico = new JButton ("Medico(a)");
         enfermagem = new JButton ("Enfermeiro(a)");
@@ -40,22 +45,27 @@ public class Menu extends JFrame {
         jcomp6 = new JLabel ("Lembre-se, o cadastro de novos funcionarios deve ser feito pelo administrador");
         jcomp6.setForeground(Color.red);
         //adjust size and set layout
+        medico.setBounds (405, 155, 125, 50);
+        enfermagem.setBounds (220, 155, 125, 50);
+        secretaria.setBounds (45, 155, 125, 50);
+        administrador.setBounds (580, 155, 125, 50);
+        jcomp5.setBounds (270, 30, 400, 50);
+        jcomp6.setBounds (150, 325, 500, 25);
 
         setPreferredSize (new Dimension (740, 364));
         setLayout (null);
         medico.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                exibirInput();
-            }
 
+            }
 
 
         });
         enfermagem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                exibirInput();
+
             }
 
 
@@ -64,9 +74,9 @@ public class Menu extends JFrame {
         secretaria.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("aaaaaa");
-                menu.setVisible(false);
-                secretarioMenu.setVisible(true);
+                exibirInput(secretarioMenu);
+
+
             }
 
 
@@ -75,12 +85,13 @@ public class Menu extends JFrame {
         administrador.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                exibirInput();
+                exibirInput(administradorMenu);
             }
 
 
 
         });
+
         //add components
         menu.add (medico);
         menu.add (enfermagem);
@@ -90,20 +101,16 @@ public class Menu extends JFrame {
         menu.add (jcomp6);
         add(menu);
         add(secretarioMenu);
+        add(administradorMenu);
 
         //set component bounds (only needed by Absolute Positioning)
-        medico.setBounds (405, 155, 125, 50);
-        enfermagem.setBounds (220, 155, 125, 50);
-        secretaria.setBounds (45, 155, 125, 50);
-        administrador.setBounds (580, 155, 125, 50);
-        jcomp5.setBounds (270, 30, 400, 50);
-        jcomp6.setBounds (150, 325, 500, 25);
+
     }
     private void trocaPainel(JPanel inicial,JPanel alvo){
         inicial.setVisible(false);
         alvo.setVisible(true);
     }
-    private void exibirInput(){
+    private void exibirInput(JPanel panelNovo){
         JFrame input = new JFrame();
         input.setVisible(true);
         input.setSize(new Dimension(300,150));
@@ -124,7 +131,8 @@ public class Menu extends JFrame {
                 if (isUsuarioValido){
                     JOptionPane.showMessageDialog(Menu.this, "Autenticado");
                     input.setVisible(false);
-                    Menu.this.add(secretarioMenu);
+                    menu.setVisible(false);
+                    panelNovo.setVisible(true);
 
                 }
                 else {

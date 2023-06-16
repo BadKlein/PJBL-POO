@@ -115,7 +115,7 @@ public class Menu extends JFrame {
         input.setVisible(true);
         input.setSize(new Dimension(300,150));
         input.setLocationRelativeTo(null);
-        String csvFile = "C:\\Users\\alwaystiredbtw\\pjbl-poo\\PJBL-POO\\src\\usuarios.csv";
+        String csvFile = "C:\\Users\\leokl\\IdeaProjects\\PJBL-POO\\src\\usuarios.csv";
 
         JPanel painel = new JPanel();
         painel.setLayout(new FlowLayout());

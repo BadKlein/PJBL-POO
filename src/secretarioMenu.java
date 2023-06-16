@@ -93,8 +93,8 @@ public class secretarioMenu extends JPanel {
                     genero = "outro";
                 }
                 Paciente paciente = new Paciente(nome.getText(), cpf.getText(), genero, idade.getText(), atendimentoTipo.getText());
-                ArrayList<Paciente> pacientes = new ArrayList();
-                pacientes.add(paciente);
+
+
 
                 JOptionPane.showMessageDialog(secretarioMenu.this, "Paciente registrado");
                 secretarioMenu.this.setVisible(false);

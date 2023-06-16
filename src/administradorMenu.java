@@ -65,6 +65,7 @@ public class administradorMenu extends JPanel {
                 String tipo = txtTipo.getText();
                 String nome = txtNome.getText();
                 String codigo = txtCodigo.getText();
+                String filePath = "C:/Users/leokl/IdeaProjects/PJBL-POO/src/usuarios.csv";
 
                 try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
                     StringBuilder fileContent = new StringBuilder();

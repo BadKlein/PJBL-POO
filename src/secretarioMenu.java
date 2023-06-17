@@ -1,8 +1,16 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.*;
+import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 
 public class secretarioMenu extends JPanel {
     private JButton submit;
@@ -21,6 +29,8 @@ public class secretarioMenu extends JPanel {
     private JLabel atendimentoTipoLabel;
     private JTextField atendimentoTipo;
 
+
+
     public secretarioMenu(JPanel panel) {
         //construct components
         submit = new JButton("Enviar");
@@ -38,6 +48,9 @@ public class secretarioMenu extends JPanel {
         cpfLabel = new JLabel("CPF:");
         atendimentoTipoLabel = new JLabel("Direcionamento do atendimento(especialidade):");
         atendimentoTipo = new JTextField(5);
+
+        // chama metodo que le os pacientes que estao salvos no CSV e os instanciam como objetos em um arrayList que foi criado na classe Menu
+        secretarioMenu.lerCSV();
 
         //adjust size and set layout
         setPreferredSize(new Dimension(750, 475));
@@ -62,9 +75,6 @@ public class secretarioMenu extends JPanel {
         cpfLabel.setBounds(35, 215, 100, 25);
         atendimentoTipoLabel.setBounds(30, 325, 300, 25);
         atendimentoTipo.setBounds(305, 325, 300, 25);
-
-
-
 
         add(submit);
         add(voltar);
@@ -92,11 +102,11 @@ public class secretarioMenu extends JPanel {
                 } else {
                     genero = "outro";
                 }
-                Paciente paciente = new Paciente(nome.getText(), cpf.getText(), genero, idade.getText(), atendimentoTipo.getText());
+
+                Menu.pacientes.add(new Paciente(nome.getText(), cpf.getText(), genero, idade.getText(), atendimentoTipo.getText()));
 
 
-
-                JOptionPane.showMessageDialog(secretarioMenu.this, "Paciente registrado");
+                escreverCSV(nome.getText(), cpf.getText(), genero, idade.getText(), atendimentoTipo.getText());
                 secretarioMenu.this.setVisible(false);
                 panel.setVisible(true);
 
@@ -109,10 +119,85 @@ public class secretarioMenu extends JPanel {
                 secretarioMenu.this.setVisible(false);
                 panel.setVisible(true);
             }
-
         });
+
 
     }
 
+    public void escreverCSV(String nome, String cpf, String genero, String idade, String atendimentoTipo) {
+        String filePath = "C:/Users/leokl/IdeaProjects/PJBL-POO/src/paciente.csv";
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            StringBuilder fileContent = new StringBuilder();
+
+            // Ler o arquivo original e armazenar o conteúdo em memória
+            String line;
+            while ((line = reader.readLine()) != null) {
+                fileContent.append(line).append(System.lineSeparator());
+            }
+
+            // Adicionar nova linha com tipo, nome e código
+            fileContent.append(nome).append(",").append(cpf).append(",").append(genero).append(",").append(idade).append(",").append(atendimentoTipo).append(",").append(System.lineSeparator());
+
+            // Sobrescrever o arquivo original com as alterações
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+                writer.write(fileContent.toString());
+                JOptionPane.showMessageDialog(secretarioMenu.this, "Paciente registrado");
+            } catch (IOException f) {
+                JOptionPane.showMessageDialog(secretarioMenu.this, "Ocorreu algum erro");
+            }
+
+        } catch (IOException f) {
+            System.out.println("Erro ao ler o arquivo CSV: " + f.getMessage());
+
+        }
+
+    }
+
+    public static void lerCSV() {
+        String csvFile = "C:\\Users\\leokl\\IdeaProjects\\PJBL-POO\\src\\paciente.csv";
+        String csvDelimiter = ",";
+        String line = "";
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+            // Lê o cabeçalho do arquivo CSV
+            String headerLine = br.readLine();
+            String[] headers = headerLine.split(csvDelimiter);
+
+            // Índices das colunas do arquivo CSV
+            int nomeIndex = findHeaderIndex(headers, "Nome");
+            int cpfIndex = findHeaderIndex(headers, "CPF");
+            int generoIndex = findHeaderIndex(headers, "Gênero");
+            int idadeIndex = findHeaderIndex(headers, "Idade");
+            int atendimentoTipoIndex = findHeaderIndex(headers, "AtendimentoTipo");
+
+            // Lê as linhas do arquivo CSV
+            while ((line = br.readLine()) != null) {
+                String[] fields = line.split(",");
+
+                // Extrai os dados de cada campo
+                String nome = fields[nomeIndex];
+                String cpf = fields[cpfIndex];
+                String genero = fields[generoIndex];
+                String idade = (fields[idadeIndex]);
+                String atendimentoTipo = fields[atendimentoTipoIndex];
+
+                // Instancia o objeto Paciente com os atributos lidos
+                Menu.pacientes.add(new Paciente(nome, cpf, genero, idade, atendimentoTipo));
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Encontra o índice do cabeçalho no array de headers
+    private static int findHeaderIndex(String[] headers, String header) {
+        for (int i = 0; i < headers.length; i++) {
+            if (headers[i].equalsIgnoreCase(header)) {
+                return i;
+            }
+        }
+        return 0;
+    }
 }
 

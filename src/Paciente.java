@@ -1,3 +1,7 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 public class Paciente extends Pessoa {
     private String genero;
     private String idade;
@@ -22,7 +26,34 @@ public class Paciente extends Pessoa {
     public String getAtendimentoTipo() {
         return atendimentoTipo;
     }
-    
+
+    @Override
+    public int contagemCadastros(){
+        String csvFile = "C:\\Users\\leokl\\IdeaProjects\\PJBL-POO\\src\\paciente.csv";
+        int contador = 0;
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+            String linha;
+            // Ignorando a primeira linha (cabeçalho)
+            br.readLine();
+
+            while ((linha = br.readLine()) != null) {
+                String[] campos = linha.split(",");
+                boolean linhaPreenchida = false;
+                for (String campo : campos) {
+                    if (!campo.trim().isEmpty()) {
+                        linhaPreenchida = true;
+                        break;
+                    }
+                }
+                if (linhaPreenchida) {
+                    contador++;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return contador;
+    }
 }
 
 

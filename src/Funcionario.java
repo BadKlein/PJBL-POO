@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 
-public class Funcionario extends Pessoa{
+public abstract class Funcionario extends Pessoa{
     private int id;
     private String turno;
 
@@ -45,6 +45,8 @@ public class Funcionario extends Pessoa{
             System.out.println("Ocorreu algum erro");
         }
     }
+
+    public abstract int contagemCadastros();
 }
 
 

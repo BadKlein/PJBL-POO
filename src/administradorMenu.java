@@ -20,6 +20,8 @@ public class administradorMenu extends JPanel {
     private JTextField txtCodigo;
     private JLabel jcomp9;
 
+
+
     public administradorMenu(JPanel panel) {
         //construct components
         enviar = new JButton("Enviar");
@@ -65,7 +67,7 @@ public class administradorMenu extends JPanel {
                 String tipo = txtTipo.getText();
                 String nome = txtNome.getText();
                 String codigo = txtCodigo.getText();
-                String filePath = "C:/Users/leokl/IdeaProjects/PJBL-POO/src/usuarios.csv";
+                String filePath = "C:/Users/leokl/IdeaProjects/PJBL-POO/src/administrador.csv";
 
                 try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
                     StringBuilder fileContent = new StringBuilder();

@@ -22,4 +22,6 @@ public abstract class Pessoa {
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
+
+    public abstract int contagemCadastros();
 }

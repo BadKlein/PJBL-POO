@@ -53,7 +53,6 @@ public class secretarioMenu extends JPanel {
         // Lendo as informacoes que ja estao salvas no csv para instanciar os objetos nos ArrayLists
         secretarioMenu.lerCSVPaciente();
         secretarioMenu.lerCSVMedico();
-        secretarioMenu.lerCSVConsulta();
 
 
 
@@ -234,57 +233,6 @@ public class secretarioMenu extends JPanel {
             e.printStackTrace();
         }
     }
-
-
-    /////////////////////////////////////////////
-    public static void lerCSVConsulta() {
-        String csvFile = "C:\\Users\\leokl\\IdeaProjects\\PJBL-POO\\src\\consulta.csv";
-        String csvDelimiter = ",";
-        String line = "";
-        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
-            // Lê o cabeçalho do arquivo CSV
-            String headerLine = br.readLine();
-            String[] headers = headerLine.split(csvDelimiter);
-
-            // Índices das colunas do arquivo CSV
-            int pacienteIndex = findHeaderIndex(headers, "Paciente");
-            int medicoIndex = findHeaderIndex(headers, "Medico");
-            int dataIndex = findHeaderIndex(headers, "Data");
-
-            // Lê as linhas do arquivo CSV
-            while ((line = br.readLine()) != null) {
-                String[] fields = line.split(",");
-
-                // Extrai os dados de cada campo
-                String pacienteNome = fields[pacienteIndex];
-                String medicoNome = fields[medicoIndex];
-                String dataConsulta= fields[dataIndex];
-
-                // Busca o paciente e o medico (a partir de seus nomes) para poder instanciar um objeto da classe Consulta (que possui Paciente e Medico como atributos)
-                for (Pessoa p : Menu.pacientes){
-                    if(Objects.equals(pacienteNome, p.getNome())){
-                        System.out.println("entrei no if paciente");
-                        for(Medico m: Menu.medicos){
-                            if(Objects.equals(medicoNome, m.getNome())){
-                                System.out.println("entrei no if medico");
-                                Menu.consultas.add(new Consulta((Paciente) p, m, dataConsulta));
-                            }
-                        }
-
-                    }
-                }
-
-
-
-
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    ///////////////////////////////////////////
-
-
 
     // Encontra o índice do cabeçalho no array de headers
     private static int findHeaderIndex(String[] headers, String header) {

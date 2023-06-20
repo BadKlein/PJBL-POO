@@ -19,8 +19,6 @@ public class Menu extends JFrame {
     private JLabel jcomp6;
 
     public static ArrayList<Pessoa> pacientes = new ArrayList<Pessoa>();
-    public static ArrayList<Consulta> consultas = new ArrayList<Consulta>();
-
     public static ArrayList<Medico> medicos = new ArrayList<Medico>();
 
 

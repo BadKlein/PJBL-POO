@@ -1,20 +1,27 @@
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
+
 
 public class Consulta{
-
-    DateTimeFormatter dataformat = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-    private final Paciente p;
-    private final Medico m;
-    private final String data;
+    private Paciente p;
+    private Medico m;
+    private String data;
 
 
-    public Consulta(Paciente p, Medico m) {
+    public Consulta(Paciente p, Medico m, String data) {
         this.p = p;
         this.m = m;
-        LocalDateTime date = LocalDateTime.now();
-        this.data = date.format(dataformat);
+        this.data = data;
+    }
+
+    public void setP(Paciente p) {
+        this.p = p;
+    }
+
+    public void setM(Medico m) {
+        this.m = m;
+    }
+
+    public void setData(String data) {
+        this.data = data;
     }
 
     public Paciente getP() {

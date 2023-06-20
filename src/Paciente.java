@@ -54,8 +54,16 @@ public class Paciente extends Pessoa {
         }
         return contador;
     }
-}
 
+    @Override
+    public String toString() {
+        return "Paciente{" +
+                "genero='" + genero + '\'' +
+                ", idade='" + idade + '\'' +
+                ", atendimentoTipo='" + atendimentoTipo + '\'' +
+                '}';
+    }
+}
 
 
 

@@ -1,5 +1,5 @@
 public class exceptionNull extends RuntimeException {
-        public exceptionNull(String mensagem) {
-            super(mensagem);
+        public exceptionNull(String erroCriarConsulta) {
+            super(erroCriarConsulta);
         }
     }

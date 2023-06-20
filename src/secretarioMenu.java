@@ -10,6 +10,7 @@ import java.io.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Objects;
 
 
 public class secretarioMenu extends JPanel {
@@ -49,8 +50,12 @@ public class secretarioMenu extends JPanel {
         atendimentoTipoLabel = new JLabel("Direcionamento do atendimento(especialidade):");
         atendimentoTipo = new JTextField(5);
 
-        // chama metodo que le os pacientes que estao salvos no CSV e os instanciam como objetos em um arrayList que foi criado na classe Menu
-        secretarioMenu.lerCSV();
+        // Lendo as informacoes que ja estao salvas no csv para instanciar os objetos nos ArrayLists
+        secretarioMenu.lerCSVPaciente();
+        secretarioMenu.lerCSVMedico();
+        secretarioMenu.lerCSVConsulta();
+
+
 
         //adjust size and set layout
         setPreferredSize(new Dimension(750, 475));
@@ -60,8 +65,8 @@ public class secretarioMenu extends JPanel {
 
 
         //set component bounds (only needed by Absolute Positioning)
-        submit.setBounds(235, 395, 140, 25);
-        voltar.setBounds(365, 395, 140, 25);
+        submit.setBounds(235, 395, 100, 25);
+        voltar.setBounds(365, 395, 100, 25);
         jcomp3.setBounds(295, 15, 200, 25);
         nomeLabel.setBounds(35, 105, 100, 25);
         nome.setBounds(110, 105, 250, 25);
@@ -137,8 +142,8 @@ public class secretarioMenu extends JPanel {
             }
 
             // Adicionar nova linha com tipo, nome e código
-            fileContent.append(nome).append(",").append(cpf).append(",").append(genero).append(",").append(idade).append(",").append(atendimentoTipo).append(",").append(System.lineSeparator());
-
+            fileContent.append(nome).append(",").append(cpf).append(",").append(genero).append(",").append(idade).append(",").append(atendimentoTipo).append(System.lineSeparator());
+            Menu.pacientes.add(new Paciente(nome, cpf, genero, idade, atendimentoTipo));
             // Sobrescrever o arquivo original com as alterações
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
                 writer.write(fileContent.toString());
@@ -154,7 +159,7 @@ public class secretarioMenu extends JPanel {
 
     }
 
-    public static void lerCSV() {
+    public static void lerCSVPaciente() {
         String csvFile = "C:\\Users\\leokl\\IdeaProjects\\PJBL-POO\\src\\paciente.csv";
         String csvDelimiter = ",";
         String line = "";
@@ -181,15 +186,95 @@ public class secretarioMenu extends JPanel {
                 String idade = (fields[idadeIndex]);
                 String atendimentoTipo = fields[atendimentoTipoIndex];
 
-                // Instancia o objeto Paciente com os atributos lidos
+                // Instancia o objeto Paciente com os atributos lidos (CHAMADA POLIFORMICA)
                 Menu.pacientes.add(new Paciente(nome, cpf, genero, idade, atendimentoTipo));
 
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        for(Paciente p : Menu.pacientes){
-            System.out.println(p.getNome());
+
+    }
+
+    public static void lerCSVMedico() {
+        String csvFile = "C:\\Users\\leokl\\IdeaProjects\\PJBL-POO\\src\\medico.csv";
+        String csvDelimiter = ",";
+        String line = "";
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+            // Lê o cabeçalho do arquivo CSV
+            String headerLine = br.readLine();
+            String[] headers = headerLine.split(csvDelimiter);
+
+            // Índices das colunas do arquivo CSV
+            int nomeIndex = findHeaderIndex(headers, "Nome");
+            int cpfIndex = findHeaderIndex(headers, "CPF");
+            int idIndex = findHeaderIndex(headers, "ID");
+            int turnoIndex = findHeaderIndex(headers, "Turno");
+            int crmIndex = findHeaderIndex(headers, "CRM");
+
+            // Lê as linhas do arquivo CSV
+            while ((line = br.readLine()) != null) {
+                String[] fields = line.split(",");
+
+                // Extrai os dados de cada campo
+                String nome = fields[nomeIndex];
+                String cpf = fields[cpfIndex];
+                String id = fields[idIndex];
+                String turno = (fields[turnoIndex]);
+                String crm = fields[crmIndex];
+
+                // Instancia o objeto Paciente com os atributos lidos
+                Menu.medicos.add(new Medico(nome, cpf, id, turno, crm));
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void lerCSVConsulta() {
+        String csvFile = "C:\\Users\\leokl\\IdeaProjects\\PJBL-POO\\src\\consulta.csv";
+        String csvDelimiter = ",";
+        String line = "";
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+            // Lê o cabeçalho do arquivo CSV
+            String headerLine = br.readLine();
+            String[] headers = headerLine.split(csvDelimiter);
+
+            // Índices das colunas do arquivo CSV
+            int pacienteIndex = findHeaderIndex(headers, "Paciente");
+            int medicoIndex = findHeaderIndex(headers, "Medico");
+            int dataIndex = findHeaderIndex(headers, "Data");
+
+            // Lê as linhas do arquivo CSV
+            while ((line = br.readLine()) != null) {
+                String[] fields = line.split(",");
+
+                // Extrai os dados de cada campo
+                String pacienteNome = fields[pacienteIndex];
+                String medicoNome = fields[medicoIndex];
+                String dataConsulta= fields[dataIndex];
+
+                // Busca o paciente e o medico (a partir de seus nomes) para poder instanciar um objeto da classe Consulta (que possui Paciente e Medico como atributos)
+                for (Pessoa p : Menu.pacientes){
+                    if(Objects.equals(pacienteNome, p.getNome())){
+                        System.out.println("entrei no if paciente");
+                        for(Medico m: Menu.medicos){
+                            if(Objects.equals(medicoNome, m.getNome())){
+                                System.out.println("entrei no if medico");
+                                Menu.consultas.add(new Consulta((Paciente) p, m, dataConsulta));
+                            }
+                        }
+
+                    }
+                }
+
+
+
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

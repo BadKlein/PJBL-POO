@@ -8,20 +8,20 @@ import java.util.Scanner;
 
 
 public abstract class Funcionario extends Pessoa{
-    private int id;
+    private String id;
     private String turno;
 
-    public Funcionario(String nome, String cpf, int id, String turno) {
+    public Funcionario(String nome, String cpf, String id, String turno) {
         super(nome, cpf);
         this.id = id;
         this.turno = turno;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

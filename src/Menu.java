@@ -18,13 +18,24 @@ public class Menu extends JFrame {
     private JLabel jcomp5;
     private JLabel jcomp6;
 
-    public static ArrayList<Paciente> pacientes = new ArrayList<Paciente>();
-    //public static  ArrayList<Funcionario> funcionarios = new ArrayList<Funcionario>();
+    public static ArrayList<Pessoa> pacientes = new ArrayList<Pessoa>();
+    public static ArrayList<Consulta> consultas = new ArrayList<Consulta>();
+
+    public static ArrayList<Medico> medicos = new ArrayList<Medico>();
+
+
+
 
     JPanel menu = new JPanel();
-    JPanel secretarioMenu = new secretarioMenu(menu);
+
     JPanel administradorMenu= new administradorMenu(menu);
     JPanel medicoMenu = new medicoMenu(menu);
+    JPanel secretarioMenu = new secretarioMenu(menu);
+    JPanel listarConsulta = new listarConsulta(menu);
+    JPanel novaConsulta = new novaConsulta(menu);
+    JPanel selecaoSecretario = new selecaoSecretario(novaConsulta,secretarioMenu,listarConsulta);
+
+
 
     public Menu(String title) {
         this.setPreferredSize(new Dimension(750,475));
@@ -36,12 +47,14 @@ public class Menu extends JFrame {
         menu.setLayout(null);
         menu.setVisible(true);
         menu.setBounds(0, 0, 750, 475);
-        secretarioMenu.setBounds(0,0,750,475);
-        secretarioMenu.setVisible(false);
+        selecaoSecretario.setBounds(0,0,750,475);
+        selecaoSecretario.setVisible(false);
         administradorMenu.setBounds(0,0,750,475);
         administradorMenu.setVisible(false);
         medicoMenu.setVisible(false);
         medicoMenu.setBounds(0,0,750,475);;
+
+
 
         //construct components
         medico = new JButton ("Medico(a)");
@@ -81,7 +94,7 @@ public class Menu extends JFrame {
         secretaria.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                exibirInput(secretarioMenu, 2);
+                exibirInput(selecaoSecretario, 2);
 
 
             }
@@ -107,9 +120,13 @@ public class Menu extends JFrame {
         menu.add (jcomp5);
         menu.add (jcomp6);
         add(menu);
-        add(secretarioMenu);
+        add(selecaoSecretario);
         add(administradorMenu);
         add(medicoMenu);
+        add(secretarioMenu);
+        add(selecaoSecretario);
+        add(listarConsulta);
+        add(novaConsulta);
 
         //set component bounds (only needed by Absolute Positioning)
 
@@ -247,5 +264,7 @@ public class Menu extends JFrame {
         }
 
     }
+
+
 
 }

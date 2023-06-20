@@ -27,7 +27,6 @@ public class Menu extends JFrame {
     JPanel menu = new JPanel();
 
     JPanel administradorMenu= new administradorMenu(menu);
-    JPanel medicoMenu = new medicoMenu(menu);
     JPanel secretarioMenu = new secretarioMenu(menu);
     JPanel listarConsulta = new listarConsulta(menu);
     JPanel novaConsulta = new novaConsulta(menu);
@@ -49,46 +48,27 @@ public class Menu extends JFrame {
         selecaoSecretario.setVisible(false);
         administradorMenu.setBounds(0,0,750,475);
         administradorMenu.setVisible(false);
-        medicoMenu.setVisible(false);
-        medicoMenu.setBounds(0,0,750,475);;
+
 
 
 
         //construct components
-        medico = new JButton ("Medico(a)");
-        enfermagem = new JButton ("Enfermeiro(a)");
-        secretaria = new JButton ("Secretario(a)");
+
+                secretaria = new JButton ("Secretario(a)");
         administrador = new JButton ("Administrador");
         jcomp5 = new JLabel ("Como deseja acessar o sistema?");
         jcomp6 = new JLabel ("Lembre-se, o cadastro de novos funcionarios deve ser feito pelo administrador");
         jcomp6.setForeground(Color.red);
         //adjust size and set layout
-        medico.setBounds (405, 155, 125, 50);
-        enfermagem.setBounds (220, 155, 125, 50);
-        secretaria.setBounds (45, 155, 125, 50);
-        administrador.setBounds (580, 155, 125, 50);
+
+        secretaria.setBounds (220, 155, 125, 50);
+        administrador.setBounds (405, 155, 125, 50);
         jcomp5.setBounds (270, 30, 400, 50);
         jcomp6.setBounds (150, 325, 500, 25);
 
-        setPreferredSize (new Dimension (740, 364));
+        setPreferredSize (new Dimension (750, 475));
         setLayout (null);
-        medico.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                exibirInput(medicoMenu, 4);
-            }
 
-
-        });
-        enfermagem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-
-
-
-        });
         secretaria.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -111,8 +91,7 @@ public class Menu extends JFrame {
         });
 
         //add components
-        menu.add (medico);
-        menu.add (enfermagem);
+
         menu.add (secretaria);
         menu.add (administrador);
         menu.add (jcomp5);
@@ -120,7 +99,6 @@ public class Menu extends JFrame {
         add(menu);
         add(selecaoSecretario);
         add(administradorMenu);
-        add(medicoMenu);
         add(secretarioMenu);
         add(selecaoSecretario);
         add(listarConsulta);

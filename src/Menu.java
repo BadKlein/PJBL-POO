@@ -131,6 +131,8 @@ public class Menu extends JFrame {
         //set component bounds (only needed by Absolute Positioning)
 
     }
+
+    // Exibir painel onde o usuario digita codigo de autenticacao
     private void exibirInput(JPanel panelNovo, int tipoUsuario){
 
         JFrame input = new JFrame();
@@ -203,6 +205,8 @@ public class Menu extends JFrame {
         input.add(painel);
 
     }
+
+    // Verificar se codigo de autenticacao inserido existe
     public boolean verificarMedico(String arquivoCSV, String input) {
         try (BufferedReader br = new BufferedReader(new FileReader(arquivoCSV))) {
             String line;

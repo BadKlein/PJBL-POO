@@ -129,6 +129,8 @@ public class secretarioMenu extends JPanel {
 
     }
 
+
+    // Escreve no CSV do paciente novos pacientes que forem registrados
     public void escreverCSV(String nome, String cpf, String genero, String idade, String atendimentoTipo) {
         String filePath = "C:/Users/leokl/IdeaProjects/PJBL-POO/src/paciente.csv";
 
@@ -158,7 +160,7 @@ public class secretarioMenu extends JPanel {
         }
 
     }
-
+    // Leitura do CSV do medico que instancia todos os pacientes salvos em um ArrayList
     public static void lerCSVPaciente() {
         String csvFile = "C:\\Users\\leokl\\IdeaProjects\\PJBL-POO\\src\\paciente.csv";
         String csvDelimiter = ",";
@@ -196,6 +198,7 @@ public class secretarioMenu extends JPanel {
 
     }
 
+    // Leitura do CSV do medico que instancia todos os medicos salvos em um ArrayList
     public static void lerCSVMedico() {
         String csvFile = "C:\\Users\\leokl\\IdeaProjects\\PJBL-POO\\src\\medico.csv";
         String csvDelimiter = ",";
@@ -232,6 +235,8 @@ public class secretarioMenu extends JPanel {
         }
     }
 
+
+    /////////////////////////////////////////////
     public static void lerCSVConsulta() {
         String csvFile = "C:\\Users\\leokl\\IdeaProjects\\PJBL-POO\\src\\consulta.csv";
         String csvDelimiter = ",";
@@ -277,6 +282,9 @@ public class secretarioMenu extends JPanel {
             e.printStackTrace();
         }
     }
+    ///////////////////////////////////////////
+
+
 
     // Encontra o índice do cabeçalho no array de headers
     private static int findHeaderIndex(String[] headers, String header) {

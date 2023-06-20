@@ -19,7 +19,7 @@ public class Menu extends JFrame {
     private JLabel jcomp6;
 
     public static ArrayList<Paciente> pacientes = new ArrayList<Paciente>();
-    public static  ArrayList<Funcionario> funcionarios = new ArrayList<Funcionario>();
+    //public static  ArrayList<Funcionario> funcionarios = new ArrayList<Funcionario>();
 
     JPanel menu = new JPanel();
     JPanel secretarioMenu = new secretarioMenu(menu);
@@ -227,24 +227,24 @@ public class Menu extends JFrame {
         }
     }
     public boolean verificarAdministrador(String arquivoCSV, String input) {
-            try (BufferedReader br = new BufferedReader(new FileReader(arquivoCSV))) {
-                String line;
-                boolean found = false;
-                // Lê cada linha do arquivo CSV
-                while ((line = br.readLine()) != null) {
-                    String[] data = line.split(",");
+        try (BufferedReader br = new BufferedReader(new FileReader(arquivoCSV))) {
+            String line;
+            boolean found = false;
+            // Lê cada linha do arquivo CSV
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(",");
 
-                    // Verifica se o código de autenticação corresponde ao input
-                    if (data.length == 2 && data[1].trim().equals(input)) {
-                        found = true;
-                        break;
-                    }
+                // Verifica se o código de autenticação corresponde ao input
+                if (data.length == 2 && data[1].trim().equals(input)) {
+                    found = true;
+                    break;
                 }
-
-                return found;
-            } catch (IOException e) {
-                throw new exceptionNull("Ocorreu algum erro, não foi possível autenticar usuário");
             }
+
+            return found;
+        } catch (IOException e) {
+            throw new exceptionNull("Ocorreu algum erro, não foi possível autenticar usuário");
+        }
 
     }
 

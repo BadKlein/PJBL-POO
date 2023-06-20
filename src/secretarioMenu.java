@@ -188,6 +188,9 @@ public class secretarioMenu extends JPanel {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        for(Paciente p : Menu.pacientes){
+            System.out.println(p.getNome());
+        }
     }
 
     // Encontra o índice do cabeçalho no array de headers

@@ -24,4 +24,5 @@ public abstract class Pessoa {
     }
 
     public abstract int contagemCadastros();
+
 }

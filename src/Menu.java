@@ -218,7 +218,7 @@ public class Menu extends JFrame {
                 String[] data = line.split(",");
 
                 // Verifica se o código de autenticação corresponde ao input
-                if (data.length == 5 && data[3].trim().equals(input)) {
+                if (data.length == 3 && data[2].trim().equals(input)) {
                     found = true;
                     break;
                 }

@@ -18,20 +18,19 @@ public class Menu extends JFrame {
     private JLabel jcomp5;
     private JLabel jcomp6;
 
+
     public static ArrayList<Pessoa> pacientes = new ArrayList<Pessoa>();
     public static ArrayList<Medico> medicos = new ArrayList<Medico>();
-
-
 
 
     JPanel menu = new JPanel();
 
     JPanel administradorMenu= new administradorMenu(menu);
+
     JPanel secretarioMenu = new secretarioMenu(menu);
     JPanel listarConsulta = new listarConsulta(menu);
     JPanel novaConsulta = new novaConsulta(menu);
     JPanel selecaoSecretario = new selecaoSecretario(novaConsulta,secretarioMenu,listarConsulta);
-
 
 
     public Menu(String title) {
@@ -48,6 +47,8 @@ public class Menu extends JFrame {
         selecaoSecretario.setVisible(false);
         administradorMenu.setBounds(0,0,750,475);
         administradorMenu.setVisible(false);
+        medicoMenu.setVisible(false);
+        medicoMenu.setBounds(0,0,750,475);;
 
 
 
@@ -69,9 +70,11 @@ public class Menu extends JFrame {
         setPreferredSize (new Dimension (750, 475));
         setLayout (null);
 
+
         secretaria.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 exibirInput(selecaoSecretario, 2);
 
 
@@ -99,6 +102,7 @@ public class Menu extends JFrame {
         add(menu);
         add(selecaoSecretario);
         add(administradorMenu);
+
         add(secretarioMenu);
         add(selecaoSecretario);
         add(listarConsulta);
@@ -109,6 +113,7 @@ public class Menu extends JFrame {
     }
 
     // Exibir painel onde o usuario digita codigo de autenticacao
+
     private void exibirInput(JPanel panelNovo, int tipoUsuario){
 
         JFrame input = new JFrame();
@@ -204,6 +209,7 @@ public class Menu extends JFrame {
         }
     }
     public boolean verificarSecretaria(String arquivoCSV, String input) {
+
         try (BufferedReader br = new BufferedReader(new FileReader(arquivoCSV))) {
             String line;
             boolean found = false;
@@ -212,7 +218,7 @@ public class Menu extends JFrame {
                 String[] data = line.split(",");
 
                 // Verifica se o código de autenticação corresponde ao input
-                if (data.length == 3 && data[2].trim().equals(input)) {
+                if (data.length == 5 && data[3].trim().equals(input)) {
                     found = true;
                     break;
                 }
@@ -224,6 +230,7 @@ public class Menu extends JFrame {
         }
     }
     public boolean verificarAdministrador(String arquivoCSV, String input) {
+
         try (BufferedReader br = new BufferedReader(new FileReader(arquivoCSV))) {
             String line;
             boolean found = false;
@@ -232,7 +239,9 @@ public class Menu extends JFrame {
                 String[] data = line.split(",");
 
                 // Verifica se o código de autenticação corresponde ao input
+
                 if (data.length == 2 && data[1].trim().equals(input)) {
+
                     found = true;
                     break;
                 }
@@ -244,6 +253,7 @@ public class Menu extends JFrame {
         }
 
     }
+
 
 
 

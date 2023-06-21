@@ -1,5 +1,6 @@
 
 
+
 public class Consulta{
     private Paciente p;
     private Medico m;
@@ -22,6 +23,7 @@ public class Consulta{
 
     public void setData(String data) {
         this.data = data;
+
     }
 
     public Paciente getP() {

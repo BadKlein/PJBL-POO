@@ -8,7 +8,9 @@ import java.util.Scanner;
 
 
 public abstract class Funcionario extends Pessoa{
+
     private String id;
+
     private String turno;
 
     public Funcionario(String nome, String cpf, String id, String turno) {

@@ -27,6 +27,7 @@ public class Paciente extends Pessoa {
         return atendimentoTipo;
     }
 
+
     @Override
     public int contagemCadastros(){
         String csvFile = "C:\\Users\\leokl\\IdeaProjects\\PJBL-POO\\src\\paciente.csv";

@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 
+
 public class secretarioMenu extends JPanel {
     private JButton submit;
     private JButton voltar;
@@ -49,7 +50,7 @@ public class secretarioMenu extends JPanel {
         cpfLabel = new JLabel("CPF:");
         atendimentoTipoLabel = new JLabel("Direcionamento do atendimento(especialidade):");
         atendimentoTipo = new JTextField(5);
-
+      
         // Lendo as informacoes que ja estao salvas no csv para instanciar os objetos nos ArrayLists
         secretarioMenu.lerCSVPaciente();
         secretarioMenu.lerCSVMedico();
@@ -129,6 +130,7 @@ public class secretarioMenu extends JPanel {
     }
 
 
+
     // Escreve no CSV do paciente novos pacientes que forem registrados
     public void escreverCSV(String nome, String cpf, String genero, String idade, String atendimentoTipo) {
         String filePath = "C:/Users/leokl/IdeaProjects/PJBL-POO/src/paciente.csv";
@@ -143,8 +145,10 @@ public class secretarioMenu extends JPanel {
             }
 
             // Adicionar nova linha com tipo, nome e código
+
             fileContent.append(nome).append(",").append(cpf).append(",").append(genero).append(",").append(idade).append(",").append(atendimentoTipo).append(System.lineSeparator());
             Menu.pacientes.add(new Paciente(nome, cpf, genero, idade, atendimentoTipo));
+
             // Sobrescrever o arquivo original com as alterações
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
                 writer.write(fileContent.toString());
@@ -195,11 +199,13 @@ public class secretarioMenu extends JPanel {
             e.printStackTrace();
         }
 
+
     }
 
     // Leitura do CSV do medico que instancia todos os medicos salvos em um ArrayList
     public static void lerCSVMedico() {
         String csvFile = "C:\\Users\\leokl\\IdeaProjects\\PJBL-POO\\src\\medico.csv";
+
         String csvDelimiter = ",";
         String line = "";
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
@@ -214,6 +220,7 @@ public class secretarioMenu extends JPanel {
             int turnoIndex = findHeaderIndex(headers, "Turno");
             int crmIndex = findHeaderIndex(headers, "CRM");
 
+
             // Lê as linhas do arquivo CSV
             while ((line = br.readLine()) != null) {
                 String[] fields = line.split(",");
@@ -221,12 +228,14 @@ public class secretarioMenu extends JPanel {
                 // Extrai os dados de cada campo
                 String nome = fields[nomeIndex];
                 String cpf = fields[cpfIndex];
+
                 String id = fields[idIndex];
                 String turno = (fields[turnoIndex]);
                 String crm = fields[crmIndex];
 
                 // Instancia o objeto Paciente com os atributos lidos
                 Menu.medicos.add(new Medico(nome, cpf, id, turno, crm));
+
 
             }
         } catch (IOException e) {

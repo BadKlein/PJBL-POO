@@ -5,7 +5,9 @@ import java.io.IOException;
 public class Medico extends Funcionario{
     private String CRM;
 
+
     public Medico(String nome, String cpf, String id, String turno, String CRM) {
+
         super(nome, cpf, id, turno);
         this.CRM = CRM;
     }
